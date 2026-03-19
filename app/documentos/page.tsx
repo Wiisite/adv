@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Scale, Plus, Trash2, X, FileText } from 'lucide-react';
-import Link from 'next/link';
+import { Plus, Trash2, X, FileText } from 'lucide-react';
+import Layout from '@/components/Layout';
 
 interface Document {
   id: string;
@@ -172,6 +172,6 @@ export default function DocumentosPage() {
           </div>
         )}
       </main>
-    </div>
+    </Layout>
   );
 }

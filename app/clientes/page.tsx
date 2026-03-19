@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Scale, Plus, Edit, Trash2, X } from 'lucide-react';
-import Link from 'next/link';
+import { Plus, Edit, Trash2, X } from 'lucide-react';
+import Layout from '@/components/Layout';
 
 interface Client {
   id: string;
@@ -201,6 +201,6 @@ export default function ClientesPage() {
           </div>
         )}
       </main>
-    </div>
+    </Layout>
   );
 }

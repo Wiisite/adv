@@ -1,22 +1,11 @@
-import { Scale, Users, Briefcase, Calendar, FileText } from 'lucide-react';
+import { Users, Briefcase, Calendar, FileText } from 'lucide-react';
 import Link from 'next/link';
+import Layout from '@/components/Layout';
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Scale className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-800">Sistema de Advocacia</span>
-            </div>
-            <span className="px-4 py-2 text-sm text-gray-500">Modo Teste</span>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <Layout>
+      <main className="p-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-600 mt-2">Bem-vindo ao sistema de gestão</p>
@@ -82,3 +71,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+Layout

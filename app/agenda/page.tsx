@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Scale, Plus, Edit, Trash2, X, Calendar as CalendarIcon } from 'lucide-react';
-import Link from 'next/link';
+import { Plus, Edit, Trash2, X, Calendar as CalendarIcon } from 'lucide-react';
+import Layout from '@/components/Layout';
 
 interface Appointment {
   id: string;
@@ -239,6 +239,6 @@ export default function AgendaPage() {
           </div>
         )}
       </main>
-    </div>
+    </Layout>
   );
 }
