@@ -1,4 +1,5 @@
-import { Scale, Users, Briefcase, Calendar } from 'lucide-react';
+import { Scale, Users, Briefcase, Calendar, FileText } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   return (
@@ -22,45 +23,45 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <Link href="/clientes" className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Clientes</p>
-                <p className="text-2xl font-bold text-gray-900">0</p>
+                <p className="text-2xl font-bold text-gray-900">-</p>
               </div>
               <Users className="h-10 w-10 text-blue-600" />
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <Link href="/processos" className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Processos</p>
-                <p className="text-2xl font-bold text-gray-900">0</p>
+                <p className="text-2xl font-bold text-gray-900">-</p>
               </div>
               <Briefcase className="h-10 w-10 text-green-600" />
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <Link href="/documentos" className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Documentos</p>
-                <p className="text-2xl font-bold text-gray-900">0</p>
+                <p className="text-2xl font-bold text-gray-900">-</p>
               </div>
-              <Scale className="h-10 w-10 text-purple-600" />
+              <FileText className="h-10 w-10 text-purple-600" />
             </div>
-          </div>
+          </Link>
 
-          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <Link href="/agenda" className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Compromissos</p>
-                <p className="text-2xl font-bold text-gray-900">0</p>
+                <p className="text-2xl font-bold text-gray-900">-</p>
               </div>
               <Calendar className="h-10 w-10 text-orange-600" />
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="mt-8 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
