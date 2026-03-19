@@ -49,52 +49,58 @@ export default function Home() {
               Cadastre e gerencie todos os seus clientes em um só lugar.
             </p>
           </div>
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="flex justify-center mb-4">
+              <Scale className="h-12 w-12 text-green-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Controle de Processos</h3>
+            <p className="text-gray-600 text-sm">
+              Acompanhe todos os processos jurídicos de forma organizada.
+            </p>
+          </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="flex justify-center mb-4">
+              <FileText className="h-12 w-12 text-purple-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Documentos</h3>
+            <p className="text-gray-600 text-sm">
+              Armazene e organize todos os documentos importantes.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+            <div className="flex justify-center mb-4">
+              <Shield className="h-12 w-12 text-orange-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Segurança</h3>
+            <p className="text-gray-600 text-sm">
+              Seus dados protegidos com autenticação e criptografia.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-16 bg-white p-8 rounded-lg shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+            ✅ Sistema Pronto para Uso
           </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          <div className="text-center text-gray-600">
+            <p className="mb-2">Deploy realizado com sucesso no Easypanel</p>
+            <p className="mb-4">Banco de dados PostgreSQL conectado e funcionando</p>
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg inline-block">
+              <p className="text-sm text-blue-900 font-semibold">Credenciais de teste:</p>
+              <p className="text-sm text-blue-700 font-mono mt-1">admin@sistema.com / admin123</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="bg-white mt-16 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
+          <p>© 2026 Sistema de Advocacia - Todos os direitos reservados</p>
+        </div>
+      </footer>
+    </div>
   );
 }
