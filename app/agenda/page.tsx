@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, X, Calendar as CalendarIcon } from 'lucide-react';
-import Layout from '@/components/Layout';
+import Navbar from '@/components/Navbar';
 
 interface Appointment {
   id: string;
@@ -108,8 +108,9 @@ export default function AgendaPage() {
   };
 
   return (
-    <Layout>
-      <main className="p-8">
+    <div className="min-h-screen bg-gray-50">
+      <Navbar />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Agenda</h1>
@@ -228,6 +229,6 @@ export default function AgendaPage() {
           </div>
         )}
       </main>
-    </Layout>
+    </div>
   );
 }
