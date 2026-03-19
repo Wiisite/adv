@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS appointments (
 INSERT INTO users (email, password_hash, full_name, role) 
 VALUES (
     'admin@sistema.com',
-    '$2a$10$rOzJw5K5vZ5Z5Z5Z5Z5Z5.Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5Z5',
+    '$2b$10$xxWVuPbdIStaisph21BjducI6sdvMatLdSmo8Skj24uhPn4zLPc16',
     'Administrador',
     'admin'
 ) ON CONFLICT (email) DO NOTHING;
