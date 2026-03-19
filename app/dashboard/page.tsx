@@ -1,16 +1,6 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import { Scale, Users, Briefcase, Calendar } from 'lucide-react';
 
 export default function DashboardPage() {
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/login');
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm">
@@ -20,12 +10,7 @@ export default function DashboardPage() {
               <Scale className="h-8 w-8 text-blue-600" />
               <span className="ml-2 text-xl font-bold text-gray-800">Sistema de Advocacia</span>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900"
-            >
-              Sair
-            </button>
+            <span className="px-4 py-2 text-sm text-gray-500">Modo Teste</span>
           </div>
         </div>
       </nav>
