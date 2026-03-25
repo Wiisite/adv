@@ -292,7 +292,7 @@ _______________________________          _______________________________
               <div className="bg-gray-50 p-12 rounded-lg border-2 border-dashed border-gray-300 text-center">
                 <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <p className="text-gray-500">
-                  Preencha os dados e clique em "Visualizar Contrato" para ver a pré-visualização
+                  Preencha os dados e clique em &quot;Visualizar Contrato&quot; para ver a pré-visualização
                 </p>
               </div>
             )}
