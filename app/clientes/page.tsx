@@ -172,6 +172,7 @@ export default function ClientesPage() {
       city: client.city || '',
       state: client.state || '',
       zip_code: client.zip_code || '',
+      neighborhood: '',
       nationality: client.nationality || 'Brasileiro',
       marital_status: client.marital_status || 'Solteiro(a)',
       profession: client.profession || '',
