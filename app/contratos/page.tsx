@@ -2,145 +2,145 @@
 
 import { useState } from 'react';
 import AppLayout from '@/components/AppLayout';
-import { Plus, Edit, Trash2, X, Search, Eye, FileText, Scale } from 'lucide-react';
+import { Plus, Edit, Trash2, X, Search, Eye, FileText, Download } from 'lucide-react';
 
-interface Processo {
+interface Contrato {
   id: string;
-  process_number: string;
+  contract_number: string;
   title: string;
   client: string;
-  category: string;
-  status: 'ativo' | 'arquivado' | 'suspenso';
-  court: string;
-  value?: string;
+  type: string;
+  value: string;
   start_date: string;
+  end_date?: string;
+  status: 'ativo' | 'vencido' | 'cancelado';
   description: string;
   created_at: string;
 }
 
-export default function ProcessosPage() {
-  const [processos, setProcessos] = useState<Processo[]>([
+export default function ContratosPage() {
+  const [contratos, setContratos] = useState<Contrato[]>([
     {
       id: '1',
-      process_number: '0001234-56.2024.8.26.0100',
-      title: 'Ação Trabalhista - Horas Extras',
+      contract_number: 'CONT-2024-001',
+      title: 'Contrato de Prestação de Serviços Jurídicos',
       client: 'João Silva',
-      category: 'Trabalhista',
+      type: 'Prestação de Serviços',
+      value: '5000',
+      start_date: '2024-01-01',
+      end_date: '2024-12-31',
       status: 'ativo',
-      court: 'TRT 2ª Região',
-      value: '50000',
-      start_date: '2024-01-15',
-      description: 'Ação de cobrança de horas extras não pagas',
+      description: 'Contrato de prestação de serviços jurídicos mensais',
       created_at: new Date().toISOString(),
     },
   ]);
   const [showModal, setShowModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
-  const [editingProcesso, setEditingProcesso] = useState<Processo | null>(null);
-  const [viewingProcesso, setViewingProcesso] = useState<Processo | null>(null);
+  const [editingContrato, setEditingContrato] = useState<Contrato | null>(null);
+  const [viewingContrato, setViewingContrato] = useState<Contrato | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<'all' | 'ativo' | 'arquivado' | 'suspenso'>('all');
-  const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [filterStatus, setFilterStatus] = useState<'all' | 'ativo' | 'vencido' | 'cancelado'>('all');
+  const [filterType, setFilterType] = useState<string>('all');
   const [formData, setFormData] = useState({
-    process_number: '',
+    contract_number: '',
     title: '',
     client: '',
-    category: 'Trabalhista',
-    status: 'ativo' as 'ativo' | 'arquivado' | 'suspenso',
-    court: '',
+    type: 'Prestação de Serviços',
     value: '',
     start_date: new Date().toISOString().split('T')[0],
+    end_date: '',
+    status: 'ativo' as 'ativo' | 'vencido' | 'cancelado',
     description: '',
   });
 
   const resetForm = () => {
     setFormData({
-      process_number: '',
+      contract_number: '',
       title: '',
       client: '',
-      category: 'Trabalhista',
-      status: 'ativo',
-      court: '',
+      type: 'Prestação de Serviços',
       value: '',
       start_date: new Date().toISOString().split('T')[0],
+      end_date: '',
+      status: 'ativo',
       description: '',
     });
-    setEditingProcesso(null);
+    setEditingContrato(null);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const newProcesso: Processo = {
-      id: editingProcesso?.id || Date.now().toString(),
-      process_number: formData.process_number,
+    const newContrato: Contrato = {
+      id: editingContrato?.id || Date.now().toString(),
+      contract_number: formData.contract_number,
       title: formData.title,
       client: formData.client,
-      category: formData.category,
-      status: formData.status,
-      court: formData.court,
+      type: formData.type,
       value: formData.value,
       start_date: formData.start_date,
+      end_date: formData.end_date,
+      status: formData.status,
       description: formData.description,
-      created_at: editingProcesso?.created_at || new Date().toISOString(),
+      created_at: editingContrato?.created_at || new Date().toISOString(),
     };
 
-    if (editingProcesso) {
-      setProcessos(processos.map(p => p.id === editingProcesso.id ? newProcesso : p));
+    if (editingContrato) {
+      setContratos(contratos.map(c => c.id === editingContrato.id ? newContrato : c));
     } else {
-      setProcessos([...processos, newProcesso]);
+      setContratos([...contratos, newContrato]);
     }
 
     setShowModal(false);
     resetForm();
   };
 
-  const handleEdit = (processo: Processo) => {
-    setEditingProcesso(processo);
+  const handleEdit = (contrato: Contrato) => {
+    setEditingContrato(contrato);
     setFormData({
-      process_number: processo.process_number,
-      title: processo.title,
-      client: processo.client,
-      category: processo.category,
-      status: processo.status,
-      court: processo.court,
-      value: processo.value || '',
-      start_date: processo.start_date,
-      description: processo.description,
+      contract_number: contrato.contract_number,
+      title: contrato.title,
+      client: contrato.client,
+      type: contrato.type,
+      value: contrato.value,
+      start_date: contrato.start_date,
+      end_date: contrato.end_date || '',
+      status: contrato.status,
+      description: contrato.description,
     });
     setShowModal(true);
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Deseja realmente excluir este processo?')) {
-      setProcessos(processos.filter(p => p.id !== id));
+    if (confirm('Deseja realmente excluir este contrato?')) {
+      setContratos(contratos.filter(c => c.id !== id));
     }
   };
 
-  const handleView = (processo: Processo) => {
-    setViewingProcesso(processo);
+  const handleView = (contrato: Contrato) => {
+    setViewingContrato(contrato);
     setShowViewModal(true);
   };
 
-  const filteredProcessos = processos.filter(processo => {
-    const matchSearch = processo.process_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       processo.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       processo.client.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchStatus = filterStatus === 'all' || processo.status === filterStatus;
-    const matchCategory = filterCategory === 'all' || processo.category === filterCategory;
-    return matchSearch && matchStatus && matchCategory;
+  const filteredContratos = contratos.filter(contrato => {
+    const matchSearch = contrato.contract_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                       contrato.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                       contrato.client.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchStatus = filterStatus === 'all' || contrato.status === filterStatus;
+    const matchType = filterType === 'all' || contrato.type === filterType;
+    return matchSearch && matchStatus && matchType;
   });
 
-  const processosAtivos = processos.filter(p => p.status === 'ativo').length;
-  const processosArquivados = processos.filter(p => p.status === 'arquivado').length;
+  const contratosAtivos = contratos.filter(c => c.status === 'ativo').length;
+  const contratosVencidos = contratos.filter(c => c.status === 'vencido').length;
 
   return (
     <AppLayout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Processos</h1>
-            <p className="text-gray-600">Gerencie os processos jurídicos</p>
+            <h1 className="text-2xl font-bold text-gray-900">Abertura de Contratos</h1>
+            <p className="text-gray-600">Gerencie os contratos do escritório</p>
           </div>
           <button
             onClick={() => {
@@ -150,7 +150,7 @@ export default function ProcessosPage() {
             className="flex items-center gap-2 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
           >
             <Plus className="w-5 h-5" />
-            Novo Processo
+            Novo Contrato
           </button>
         </div>
 
@@ -158,11 +158,11 @@ export default function ProcessosPage() {
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Processos Ativos</p>
-                <p className="text-2xl font-bold text-green-600">{processosAtivos}</p>
+                <p className="text-sm text-gray-600">Contratos Ativos</p>
+                <p className="text-2xl font-bold text-green-600">{contratosAtivos}</p>
               </div>
               <div className="p-3 bg-green-100 rounded-full">
-                <Scale className="w-6 h-6 text-green-600" />
+                <FileText className="w-6 h-6 text-green-600" />
               </div>
             </div>
           </div>
@@ -170,11 +170,11 @@ export default function ProcessosPage() {
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Processos Arquivados</p>
-                <p className="text-2xl font-bold text-gray-600">{processosArquivados}</p>
+                <p className="text-sm text-gray-600">Contratos Vencidos</p>
+                <p className="text-2xl font-bold text-red-600">{contratosVencidos}</p>
               </div>
-              <div className="p-3 bg-gray-100 rounded-full">
-                <FileText className="w-6 h-6 text-gray-600" />
+              <div className="p-3 bg-red-100 rounded-full">
+                <FileText className="w-6 h-6 text-red-600" />
               </div>
             </div>
           </div>
@@ -182,8 +182,8 @@ export default function ProcessosPage() {
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total de Processos</p>
-                <p className="text-2xl font-bold text-blue-600">{processos.length}</p>
+                <p className="text-sm text-gray-600">Total de Contratos</p>
+                <p className="text-2xl font-bold text-blue-600">{contratos.length}</p>
               </div>
               <div className="p-3 bg-blue-100 rounded-full">
                 <FileText className="w-6 h-6 text-blue-600" />
@@ -207,15 +207,15 @@ export default function ProcessosPage() {
               </div>
 
               <select
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
               >
-                <option value="all">Todas as Categorias</option>
-                <option value="Trabalhista">Trabalhista</option>
-                <option value="Civil">Civil</option>
-                <option value="Criminal">Criminal</option>
-                <option value="Família">Família</option>
+                <option value="all">Todos os Tipos</option>
+                <option value="Prestação de Serviços">Prestação de Serviços</option>
+                <option value="Honorários">Honorários</option>
+                <option value="Consultoria">Consultoria</option>
+                <option value="Outros">Outros</option>
               </select>
 
               <select
@@ -225,8 +225,8 @@ export default function ProcessosPage() {
               >
                 <option value="all">Todos os Status</option>
                 <option value="ativo">Ativo</option>
-                <option value="arquivado">Arquivado</option>
-                <option value="suspenso">Suspenso</option>
+                <option value="vencido">Vencido</option>
+                <option value="cancelado">Cancelado</option>
               </select>
             </div>
           </div>
@@ -238,54 +238,65 @@ export default function ProcessosPage() {
                   <th className="px-6 py-3 text-left text-sm font-semibold">Número</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold">Título</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold">Cliente</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold">Categoria</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold">Tipo</th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold">Valor</th>
                   <th className="px-6 py-3 text-left text-sm font-semibold">Status</th>
                   <th className="px-6 py-3 text-center text-sm font-semibold">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {filteredProcessos.length === 0 ? (
+                {filteredContratos.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                      Nenhum processo encontrado
+                    <td colSpan={7} className="px-6 py-8 text-center text-gray-500">
+                      Nenhum contrato encontrado
                     </td>
                   </tr>
                 ) : (
-                  filteredProcessos.map((processo) => (
-                    <tr key={processo.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-900 font-medium">{processo.process_number}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">{processo.title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{processo.client}</td>
-                      <td className="px-6 py-4 text-sm text-gray-600">{processo.category}</td>
+                  filteredContratos.map((contrato) => (
+                    <tr key={contrato.id} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 text-sm text-gray-900 font-medium">{contrato.contract_number}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900">{contrato.title}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{contrato.client}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{contrato.type}</td>
+                      <td className="px-6 py-4 text-sm text-gray-900 font-medium">
+                        R$ {parseFloat(contrato.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                      </td>
                       <td className="px-6 py-4">
                         <span className={`px-2 py-1 text-xs font-medium rounded ${
-                          processo.status === 'ativo' 
+                          contrato.status === 'ativo' 
                             ? 'bg-green-100 text-green-800'
-                            : processo.status === 'suspenso'
-                            ? 'bg-yellow-100 text-yellow-800'
+                            : contrato.status === 'vencido'
+                            ? 'bg-red-100 text-red-800'
                             : 'bg-gray-100 text-gray-800'
                         }`}>
-                          {processo.status.charAt(0).toUpperCase() + processo.status.slice(1)}
+                          {contrato.status.charAt(0).toUpperCase() + contrato.status.slice(1)}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center justify-center gap-1">
                           <button
-                            onClick={() => handleView(processo)}
+                            onClick={() => handleView(contrato)}
                             className="p-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors"
                             title="Visualizar"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => handleEdit(processo)}
+                            onClick={() => alert('Função de download em desenvolvimento')}
+                            className="p-2 text-white bg-purple-500 rounded hover:bg-purple-600 transition-colors"
+                            title="Download"
+                          >
+                            <Download className="w-4 h-4" />
+                          </button>
+                          <button
+                            onClick={() => handleEdit(contrato)}
                             className="p-2 text-white bg-cyan-500 rounded hover:bg-cyan-600 transition-colors"
                             title="Editar"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
                           <button
-                            onClick={() => handleDelete(processo.id)}
+                            onClick={() => handleDelete(contrato.id)}
                             className="p-2 text-white bg-red-500 rounded hover:bg-red-600 transition-colors"
                             title="Excluir"
                           >
@@ -307,7 +318,7 @@ export default function ProcessosPage() {
           <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="bg-cyan-600 text-white px-6 py-4 flex justify-between items-center">
               <h2 className="text-xl font-semibold">
-                {editingProcesso ? 'Editar Processo' : 'Novo Processo'}
+                {editingContrato ? 'Editar Contrato' : 'Novo Contrato'}
               </h2>
               <button
                 onClick={() => {
@@ -322,31 +333,17 @@ export default function ProcessosPage() {
 
             <form onSubmit={handleSubmit} className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Número do Processo <span className="text-red-500">*</span>
+                    Número do Contrato <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     required
-                    value={formData.process_number}
-                    onChange={(e) => setFormData({ ...formData, process_number: e.target.value })}
+                    value={formData.contract_number}
+                    onChange={(e) => setFormData({ ...formData, contract_number: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="0000000-00.0000.0.00.0000"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Título <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="Título do processo"
+                    placeholder="CONT-2024-001"
                   />
                 </div>
 
@@ -364,32 +361,72 @@ export default function ProcessosPage() {
                   />
                 </div>
 
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Título <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    placeholder="Título do contrato"
+                  />
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Categoria <span className="text-red-500">*</span>
+                    Tipo <span className="text-red-500">*</span>
                   </label>
                   <select
                     required
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    value={formData.type}
+                    onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   >
-                    <option value="Trabalhista">Trabalhista</option>
-                    <option value="Civil">Civil</option>
-                    <option value="Criminal">Criminal</option>
-                    <option value="Família">Família</option>
-                    <option value="Empresarial">Empresarial</option>
+                    <option value="Prestação de Serviços">Prestação de Serviços</option>
+                    <option value="Honorários">Honorários</option>
+                    <option value="Consultoria">Consultoria</option>
+                    <option value="Outros">Outros</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tribunal</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Valor (R$) <span className="text-red-500">*</span>
+                  </label>
                   <input
-                    type="text"
-                    value={formData.court}
-                    onChange={(e) => setFormData({ ...formData, court: e.target.value })}
+                    type="number"
+                    step="0.01"
+                    required
+                    value={formData.value}
+                    onChange={(e) => setFormData({ ...formData, value: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="Ex: TRT 2ª Região"
+                    placeholder="0,00"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Data de Início <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    required
+                    value={formData.start_date}
+                    onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Data de Término</label>
+                  <input
+                    type="date"
+                    value={formData.end_date}
+                    onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   />
                 </div>
 
@@ -401,31 +438,9 @@ export default function ProcessosPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                   >
                     <option value="ativo">Ativo</option>
-                    <option value="suspenso">Suspenso</option>
-                    <option value="arquivado">Arquivado</option>
+                    <option value="vencido">Vencido</option>
+                    <option value="cancelado">Cancelado</option>
                   </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Valor da Causa (R$)</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={formData.value}
-                    onChange={(e) => setFormData({ ...formData, value: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="0,00"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Data de Início</label>
-                  <input
-                    type="date"
-                    value={formData.start_date}
-                    onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                  />
                 </div>
 
                 <div className="md:col-span-2">
@@ -435,7 +450,7 @@ export default function ProcessosPage() {
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     rows={4}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="Descrição do processo..."
+                    placeholder="Descrição do contrato..."
                   />
                 </div>
               </div>
@@ -463,11 +478,11 @@ export default function ProcessosPage() {
         </div>
       )}
 
-      {showViewModal && viewingProcesso && (
+      {showViewModal && viewingContrato && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="bg-cyan-600 text-white px-6 py-4 flex justify-between items-center">
-              <h2 className="text-xl font-semibold">Detalhes do Processo</h2>
+              <h2 className="text-xl font-semibold">Detalhes do Contrato</h2>
               <button
                 onClick={() => setShowViewModal(false)}
                 className="text-white hover:text-gray-200"
@@ -479,50 +494,52 @@ export default function ProcessosPage() {
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Número do Processo</label>
-                  <p className="text-gray-900 font-medium">{viewingProcesso.process_number}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">Número do Contrato</label>
+                  <p className="text-gray-900 font-medium">{viewingContrato.contract_number}</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-500 mb-1">Status</label>
                   <span className={`px-2 py-1 text-xs font-medium rounded ${
-                    viewingProcesso.status === 'ativo' 
+                    viewingContrato.status === 'ativo' 
                       ? 'bg-green-100 text-green-800'
-                      : viewingProcesso.status === 'suspenso'
-                      ? 'bg-yellow-100 text-yellow-800'
+                      : viewingContrato.status === 'vencido'
+                      ? 'bg-red-100 text-red-800'
                       : 'bg-gray-100 text-gray-800'
                   }`}>
-                    {viewingProcesso.status.charAt(0).toUpperCase() + viewingProcesso.status.slice(1)}
+                    {viewingContrato.status.charAt(0).toUpperCase() + viewingContrato.status.slice(1)}
                   </span>
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-500 mb-1">Título</label>
-                  <p className="text-gray-900">{viewingProcesso.title}</p>
+                  <p className="text-gray-900">{viewingContrato.title}</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-500 mb-1">Cliente</label>
-                  <p className="text-gray-900">{viewingProcesso.client}</p>
+                  <p className="text-gray-900">{viewingContrato.client}</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Categoria</label>
-                  <p className="text-gray-900">{viewingProcesso.category}</p>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">Tipo</label>
+                  <p className="text-gray-900">{viewingContrato.type}</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Tribunal</label>
-                  <p className="text-gray-900">{viewingProcesso.court || '-'}</p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-500 mb-1">Valor da Causa</label>
-                  <p className="text-gray-900">
-                    {viewingProcesso.value ? `R$ ${parseFloat(viewingProcesso.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : '-'}
+                  <label className="block text-sm font-medium text-gray-500 mb-1">Valor</label>
+                  <p className="text-gray-900 font-medium">
+                    R$ {parseFloat(viewingContrato.value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-500 mb-1">Data de Início</label>
-                  <p className="text-gray-900">{new Date(viewingProcesso.start_date).toLocaleDateString('pt-BR')}</p>
+                  <p className="text-gray-900">{new Date(viewingContrato.start_date).toLocaleDateString('pt-BR')}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500 mb-1">Data de Término</label>
+                  <p className="text-gray-900">
+                    {viewingContrato.end_date ? new Date(viewingContrato.end_date).toLocaleDateString('pt-BR') : '-'}
+                  </p>
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-500 mb-1">Descrição</label>
-                  <p className="text-gray-900 whitespace-pre-wrap">{viewingProcesso.description}</p>
+                  <p className="text-gray-900 whitespace-pre-wrap">{viewingContrato.description}</p>
                 </div>
               </div>
 
@@ -530,7 +547,7 @@ export default function ProcessosPage() {
                 <button
                   onClick={() => {
                     setShowViewModal(false);
-                    handleEdit(viewingProcesso);
+                    handleEdit(viewingContrato);
                   }}
                   className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
                 >
