@@ -6,7 +6,7 @@ import ThemeToggle from './ThemeToggle';
 
 export default function AppHeader() {
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 fixed top-0 left-64 right-0 z-10">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 fixed top-0 right-0 left-64 z-10">
       <div className="h-full px-6 flex items-center justify-between">
         <div className="flex-1 max-w-xl">
           <GlobalSearch />
