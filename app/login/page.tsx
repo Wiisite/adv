@@ -30,7 +30,8 @@ export default function LoginPage() {
         return;
       }
 
-      router.push('/dashboard');
+      // Redirecionar para o dashboard
+      window.location.href = '/dashboard';
     } catch (err) {
       setError('Erro ao conectar com o servidor');
       setLoading(false);
