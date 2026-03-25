@@ -24,14 +24,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <AppSidebar />
-      <div className="flex-1 flex flex-col ml-64">
-        <AppHeader />
-        <main className="flex-1 p-6 mt-16">
-          {children}
-        </main>
-      </div>
+      <AppHeader />
+      <main className="ml-64 mt-16 p-6">
+        {children}
+      </main>
     </div>
   );
 }

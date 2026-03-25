@@ -91,7 +91,7 @@ export default function AppSidebar() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <aside className="w-64 bg-gray-900 dark:bg-gray-950 text-white h-screen overflow-y-auto">
+    <aside className="fixed left-0 top-0 w-64 bg-gray-900 dark:bg-gray-950 text-white h-screen overflow-y-auto z-20">
       <div className="p-4 border-b border-gray-800 dark:border-gray-700">
         <h1 className="text-xl font-bold text-cyan-400">Sistema Advocacia</h1>
       </div>
