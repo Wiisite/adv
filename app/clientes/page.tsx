@@ -28,6 +28,9 @@ export default function ClientesPage() {
   const [showModal, setShowModal] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loadingCep, setLoadingCep] = useState(false);
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [viewingClient, setViewingClient] = useState<Client | null>(null);
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -38,6 +41,7 @@ export default function ClientesPage() {
     city: '',
     state: '',
     zip_code: '',
+    neighborhood: '',
     nationality: 'Brasileiro',
     marital_status: 'Solteiro(a)',
     profession: '',
@@ -96,12 +100,64 @@ export default function ClientesPage() {
       city: '',
       state: '',
       zip_code: '',
+      neighborhood: '',
       nationality: 'Brasileiro',
       marital_status: 'Solteiro(a)',
       profession: '',
       notes: '',
     });
     setEditingClient(null);
+  };
+
+  const handleCepChange = async (cep: string) => {
+    const cleanCep = cep.replace(/\D/g, '');
+    setFormData({ ...formData, zip_code: cep });
+
+    if (cleanCep.length === 8) {
+      setLoadingCep(true);
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
+        const data = await response.json();
+
+        if (!data.erro) {
+          setFormData(prev => ({
+            ...prev,
+            address: data.logradouro || '',
+            neighborhood: data.bairro || '',
+            city: data.localidade || '',
+            state: data.uf || '',
+          }));
+        } else {
+          alert('CEP não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar CEP:', error);
+        alert('Erro ao buscar CEP');
+      }
+      setLoadingCep(false);
+    }
+  };
+
+  const handleWhatsApp = (phone: string) => {
+    if (!phone) {
+      alert('Cliente não possui telefone cadastrado');
+      return;
+    }
+    const cleanPhone = phone.replace(/\D/g, '');
+    window.open(`https://wa.me/55${cleanPhone}`, '_blank');
+  };
+
+  const handleEmail = (email: string) => {
+    if (!email) {
+      alert('Cliente não possui email cadastrado');
+      return;
+    }
+    window.location.href = `mailto:${email}`;
+  };
+
+  const handleViewClient = (client: Client) => {
+    setViewingClient(client);
+    setShowViewModal(true);
   };
 
   const handleEdit = (client: Client) => {
@@ -232,22 +288,46 @@ export default function ClientesPage() {
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-green-500 rounded hover:bg-green-600 transition-colors" title="WhatsApp">
+                          <button
+                            onClick={() => handleWhatsApp(client.phone)}
+                            className="p-2 text-white bg-green-500 rounded hover:bg-green-600 transition-colors"
+                            title="WhatsApp"
+                          >
                             <Phone className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors" title="Email">
+                          <button
+                            onClick={() => handleEmail(client.email)}
+                            className="p-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors"
+                            title="Email"
+                          >
                             <Mail className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-purple-500 rounded hover:bg-purple-600 transition-colors" title="Documentos">
+                          <button
+                            onClick={() => alert('Funcionalidade de Documentos em desenvolvimento')}
+                            className="p-2 text-white bg-purple-500 rounded hover:bg-purple-600 transition-colors"
+                            title="Documentos"
+                          >
                             <FileText className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-orange-500 rounded hover:bg-orange-600 transition-colors" title="Processos">
+                          <button
+                            onClick={() => alert('Funcionalidade de Processos em desenvolvimento')}
+                            className="p-2 text-white bg-orange-500 rounded hover:bg-orange-600 transition-colors"
+                            title="Processos"
+                          >
                             <MapPin className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-gray-700 rounded hover:bg-gray-800 transition-colors" title="Visualizar">
+                          <button
+                            onClick={() => handleViewClient(client)}
+                            className="p-2 text-white bg-gray-700 rounded hover:bg-gray-800 transition-colors"
+                            title="Visualizar"
+                          >
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="p-2 text-white bg-pink-500 rounded hover:bg-pink-600 transition-colors" title="Perfil">
+                          <button
+                            onClick={() => handleViewClient(client)}
+                            className="p-2 text-white bg-pink-500 rounded hover:bg-pink-600 transition-colors"
+                            title="Perfil"
+                          >
                             <User className="w-4 h-4" />
                           </button>
                         </div>
@@ -357,13 +437,21 @@ export default function ClientesPage() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">CEP</label>
-                  <input
-                    type="text"
-                    value={formData.zip_code}
-                    onChange={(e) => setFormData({ ...formData, zip_code: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
-                    placeholder="00000-000"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={formData.zip_code}
+                      onChange={(e) => handleCepChange(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                      placeholder="00000-000"
+                      maxLength={9}
+                    />
+                    {loadingCep && (
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <div className="w-4 h-4 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div>
@@ -399,6 +487,8 @@ export default function ClientesPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
                   <input
                     type="text"
+                    value={formData.neighborhood}
+                    onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
                     placeholder="Bairro"
                   />
@@ -520,6 +610,103 @@ export default function ClientesPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showViewModal && viewingClient && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            <div className="bg-cyan-600 text-white px-6 py-4 flex justify-between items-center">
+              <h2 className="text-xl font-semibold">Detalhes do Cliente</h2>
+              <button
+                onClick={() => setShowViewModal(false)}
+                className="text-white hover:text-gray-200"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Nome Completo</label>
+                  <p className="text-gray-900 font-medium">{viewingClient.full_name}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Email</label>
+                  <p className="text-gray-900">{viewingClient.email || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Telefone</label>
+                  <p className="text-gray-900">{viewingClient.phone || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">CPF</label>
+                  <p className="text-gray-900">{viewingClient.cpf || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">RG</label>
+                  <p className="text-gray-900">{viewingClient.rg || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">CEP</label>
+                  <p className="text-gray-900">{viewingClient.zip_code || '-'}</p>
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium text-gray-500">Endereço</label>
+                  <p className="text-gray-900">{viewingClient.address || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Cidade</label>
+                  <p className="text-gray-900">{viewingClient.city || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Estado</label>
+                  <p className="text-gray-900">{viewingClient.state || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Nacionalidade</label>
+                  <p className="text-gray-900">{viewingClient.nationality || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Estado Civil</label>
+                  <p className="text-gray-900">{viewingClient.marital_status || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Profissão</label>
+                  <p className="text-gray-900">{viewingClient.profession || '-'}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-500">Data de Cadastro</label>
+                  <p className="text-gray-900">{new Date(viewingClient.created_at).toLocaleDateString('pt-BR')}</p>
+                </div>
+                {viewingClient.notes && (
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-500">Observações</label>
+                    <p className="text-gray-900 whitespace-pre-wrap">{viewingClient.notes}</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex justify-end gap-2 pt-4 border-t">
+                <button
+                  onClick={() => {
+                    setShowViewModal(false);
+                    handleEdit(viewingClient);
+                  }}
+                  className="px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={() => setShowViewModal(false)}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
+                >
+                  Fechar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
