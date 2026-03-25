@@ -65,6 +65,7 @@ export default function AppSidebar() {
     { label: 'Financeiro', icon: DollarSign, href: '/financeiro' },
     { label: 'Anotações', icon: FileText, href: '/anotacoes' },
     { label: 'Caixas', icon: Building, href: '/caixas' },
+    { label: 'Calendário', icon: Calendar, href: '/calendario' },
     { label: 'Tarefas / Agenda', icon: Calendar, href: '/agenda' },
     { label: 'Abertura de Contratos', icon: FileCheck, href: '/contratos' },
     { label: 'Gerar Contrato', icon: Scale, href: '/gerar-contrato' },
