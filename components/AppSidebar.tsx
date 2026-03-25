@@ -24,6 +24,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 interface MenuItem {
   label: string;
@@ -90,15 +91,12 @@ export default function AppSidebar() {
   const isActive = (href: string) => pathname === href;
 
   return (
-    <aside className="w-64 bg-gray-900 text-white h-screen fixed left-0 top-0 overflow-y-auto">
-      <div className="p-4 border-b border-gray-800">
-        <div className="flex items-center gap-2">
-          <Scale className="w-8 h-8 text-cyan-400" />
-          <h1 className="text-xl font-bold">Dr. Advogado</h1>
-        </div>
+    <aside className="w-64 bg-gray-900 dark:bg-gray-950 text-white h-screen overflow-y-auto">
+      <div className="p-4 border-b border-gray-800 dark:border-gray-700 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-cyan-400">Sistema Advocacia</h1>
+        <ThemeToggle />
       </div>
-
-      <nav className="p-2">
+      <nav className="p-4 space-y-1">
         {menuItems.map((item) => (
           <div key={item.label}>
             {item.submenu ? (
