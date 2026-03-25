@@ -13,12 +13,17 @@ interface SearchResult {
 }
 
 export default function GlobalSearch() {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const mockData: SearchResult[] = [
     { id: '1', title: 'João Silva', subtitle: 'Cliente - (11) 98765-4321', type: 'cliente', href: '/clientes' },
@@ -121,6 +126,15 @@ export default function GlobalSearch() {
         return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
+
+  if (!mounted) {
+    return (
+      <div className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-600">
+        <Search className="w-4 h-4" />
+        <span className="text-sm">Buscar...</span>
+      </div>
+    );
+  }
 
   return (
     <>
