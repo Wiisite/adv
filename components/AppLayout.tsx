@@ -27,8 +27,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <AppSidebar />
       <AppHeader />
-      <main className="ml-64 mt-16 p-6">
-        {children}
+      <main className="ml-64 mt-16 p-6 w-[calc(100%-16rem)]">
+        <div className="max-w-full">
+          {children}
+        </div>
       </main>
     </div>
   );

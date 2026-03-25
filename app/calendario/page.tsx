@@ -81,7 +81,7 @@ export default function CalendarioPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 w-full">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Calendário</h1>
@@ -93,7 +93,7 @@ export default function CalendarioPage() {
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 w-full">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-4">
               <button
@@ -147,7 +147,7 @@ export default function CalendarioPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-7 gap-2">
+          <div className="grid grid-cols-7 gap-1 w-full">
             {weekDays.map(day => (
               <div
                 key={day}
@@ -158,7 +158,7 @@ export default function CalendarioPage() {
             ))}
 
             {Array.from({ length: startingDayOfWeek }).map((_, index) => (
-              <div key={`empty-${index}`} className="aspect-square" />
+              <div key={`empty-${index}`} className="min-h-[100px]" />
             ))}
 
             {Array.from({ length: daysInMonth }).map((_, index) => {
@@ -172,13 +172,13 @@ export default function CalendarioPage() {
               return (
                 <div
                   key={day}
-                  className={`aspect-square border border-gray-200 dark:border-gray-700 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
+                  className={`min-h-[100px] border border-gray-200 dark:border-gray-700 rounded-lg p-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
                     isToday ? 'bg-cyan-50 dark:bg-cyan-900 border-cyan-500' : ''
                   }`}
                 >
                   <div className="flex flex-col h-full">
                     <span
-                      className={`text-sm font-medium ${
+                      className={`text-sm font-medium mb-1 ${
                         isToday
                           ? 'text-cyan-600 dark:text-cyan-400'
                           : 'text-gray-700 dark:text-gray-300'
@@ -186,7 +186,7 @@ export default function CalendarioPage() {
                     >
                       {day}
                     </span>
-                    <div className="flex-1 mt-1 space-y-1 overflow-y-auto">
+                    <div className="space-y-1">
                       {dayEvents.map(event => (
                         <div
                           key={event.id}
