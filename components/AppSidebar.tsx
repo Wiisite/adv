@@ -112,6 +112,7 @@ export default function AppSidebar() {
       ]
     },
     
+    { label: 'Assistente IA', icon: FileText, href: '/assistente-ia' },
     { label: 'Anotações', icon: FileText, href: '/anotacoes' },
     { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
     
