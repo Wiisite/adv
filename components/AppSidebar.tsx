@@ -97,6 +97,7 @@ export default function AppSidebar() {
     { label: 'Controle de Horas', icon: Clock, href: '/timesheet' },
     { label: 'Relatórios', icon: FileText, href: '/relatorios' },
     { label: 'Configurações', icon: Building, href: '/configuracoes' },
+    { label: 'LGPD/Compliance', icon: Building, href: '/lgpd' },
     { label: 'Logs do Sistema', icon: FileText, href: '/logs' },
     { label: 'Ajuda', icon: FileText, href: '/ajuda' },
     { label: 'Site', icon: Globe, href: '/site' },
