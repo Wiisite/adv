@@ -21,7 +21,8 @@ import {
   Building,
   TrendingUp,
   ChevronDown,
-  ChevronRight
+  ChevronRight,
+  Clock
 } from 'lucide-react';
 import { useState } from 'react';
 
