@@ -78,6 +78,14 @@ export default function AppSidebar() {
     { label: 'Tarefas / Agenda', icon: Calendar, href: '/agenda' },
     { label: 'Abertura de Contratos', icon: FileCheck, href: '/contratos' },
     { label: 'Gerar Contrato', icon: Scale, href: '/gerar-contrato' },
+    { 
+      label: 'Documentos',
+      icon: FolderOpen,
+      submenu: [
+        { label: 'Arquivos', href: '/documentos' },
+        { label: 'Gestão de Documentos', href: '/gestao-documentos' },
+      ]
+    },
     { label: 'Processos', icon: Gavel, href: '/processos' },
     { label: 'Processos Andamento', icon: Briefcase, href: '/processos-andamento' },
     { label: 'Casos Solicitados', icon: ClipboardList, href: '/casos-solicitados' },
