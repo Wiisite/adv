@@ -88,6 +88,7 @@ export default function AppSidebar() {
     },
     { label: 'Processos', icon: Gavel, href: '/processos' },
     { label: 'Processos Andamento', icon: Briefcase, href: '/processos-andamento' },
+    { label: 'Integração Tribunais', icon: Gavel, href: '/integracao-tribunais' },
     { label: 'Casos Solicitados', icon: ClipboardList, href: '/casos-solicitados' },
     { label: 'Audiências', icon: UserCheck, href: '/audiencias' },
     { label: 'Perícias', icon: Award, href: '/pericias' },
