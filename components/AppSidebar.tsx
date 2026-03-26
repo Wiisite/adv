@@ -35,10 +35,11 @@ interface MenuItem {
 
 export default function AppSidebar() {
   const pathname = usePathname();
-  const [openMenus, setOpenMenus] = useState<string[]>(['Pessoas']);
+  const [openMenus, setOpenMenus] = useState<string[]>([]);
 
   const menuItems: MenuItem[] = [
     { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
+    
     {
       label: 'Pessoas',
       icon: Users,
@@ -49,9 +50,74 @@ export default function AppSidebar() {
         { label: 'Fornecedores', href: '/fornecedores' },
       ]
     },
+    
+    {
+      label: 'Processos',
+      icon: Gavel,
+      submenu: [
+        { label: 'Todos os Processos', href: '/processos' },
+        { label: 'Em Andamento', href: '/processos-andamento' },
+        { label: 'Casos Solicitados', href: '/casos-solicitados' },
+        { label: 'Integração Tribunais', href: '/integracao-tribunais' },
+      ]
+    },
+    
+    {
+      label: 'Agenda',
+      icon: Calendar,
+      submenu: [
+        { label: 'Calendário', href: '/calendario' },
+        { label: 'Tarefas / Agenda', href: '/agenda' },
+        { label: 'Audiências', href: '/audiencias' },
+        { label: 'Perícias', href: '/pericias' },
+      ]
+    },
+    
+    {
+      label: 'Contratos',
+      icon: FileCheck,
+      submenu: [
+        { label: 'Abertura de Contratos', href: '/contratos' },
+        { label: 'Gerar Contrato', href: '/gerar-contrato' },
+      ]
+    },
+    
+    {
+      label: 'Documentos',
+      icon: FolderOpen,
+      submenu: [
+        { label: 'Arquivos', href: '/documentos' },
+        { label: 'Gestão de Documentos', href: '/gestao-documentos' },
+      ]
+    },
+    
+    {
+      label: 'Financeiro',
+      icon: DollarSign,
+      submenu: [
+        { label: 'Visão Geral', href: '/financeiro' },
+        { label: 'Contas a Pagar', href: '/contas-pagar' },
+        { label: 'Contas a Receber', href: '/contas-receber' },
+        { label: 'Caixas', href: '/caixas' },
+        { label: 'Controle de Horas', href: '/timesheet' },
+      ]
+    },
+    
+    {
+      label: 'Comunicação',
+      icon: FileText,
+      submenu: [
+        { label: 'Email/WhatsApp/SMS', href: '/comunicacao' },
+        { label: 'Chat Interno', href: '/chat' },
+      ]
+    },
+    
+    { label: 'Anotações', icon: FileText, href: '/anotacoes' },
+    { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
+    
     {
       label: 'Cadastros',
-      icon: FolderOpen,
+      icon: Building,
       submenu: [
         { label: 'Prompts', href: '/cadastros/prompts' },
         { label: 'Formas Pgto', href: '/cadastros/formas-pgto' },
@@ -63,47 +129,29 @@ export default function AppSidebar() {
         { label: 'Assuntos', href: '/cadastros/assuntos' },
       ]
     },
+    
     {
-      label: 'Financeiro',
-      icon: DollarSign,
+      label: 'Gestão',
+      icon: TrendingUp,
       submenu: [
-        { label: 'Visão Geral', href: '/financeiro' },
-        { label: 'Contas a Pagar', href: '/contas-pagar' },
-        { label: 'Contas a Receber', href: '/contas-receber' },
+        { label: 'RH', href: '/rh' },
+        { label: 'Marketing', href: '/marketing' },
+        { label: 'Site', href: '/site' },
       ]
     },
-    { label: 'Anotações', icon: FileText, href: '/anotacoes' },
-    { label: 'Caixas', icon: Building, href: '/caixas' },
-    { label: 'Calendário', icon: Calendar, href: '/calendario' },
-    { label: 'Tarefas / Agenda', icon: Calendar, href: '/agenda' },
-    { label: 'Abertura de Contratos', icon: FileCheck, href: '/contratos' },
-    { label: 'Gerar Contrato', icon: Scale, href: '/gerar-contrato' },
-    { 
-      label: 'Documentos',
-      icon: FolderOpen,
-      submenu: [
-        { label: 'Arquivos', href: '/documentos' },
-        { label: 'Gestão de Documentos', href: '/gestao-documentos' },
-      ]
-    },
-    { label: 'Processos', icon: Gavel, href: '/processos' },
-    { label: 'Processos Andamento', icon: Briefcase, href: '/processos-andamento' },
-    { label: 'Integração Tribunais', icon: Gavel, href: '/integracao-tribunais' },
-    { label: 'Casos Solicitados', icon: ClipboardList, href: '/casos-solicitados' },
-    { label: 'Audiências', icon: UserCheck, href: '/audiencias' },
-    { label: 'Perícias', icon: Award, href: '/pericias' },
-    { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
-    { label: 'Chat', icon: Users, href: '/chat' },
-    { label: 'Comunicação', icon: FileText, href: '/comunicacao' },
-    { label: 'Controle de Horas', icon: Clock, href: '/timesheet' },
+    
     { label: 'Relatórios', icon: FileText, href: '/relatorios' },
-    { label: 'Configurações', icon: Building, href: '/configuracoes' },
-    { label: 'LGPD/Compliance', icon: Building, href: '/lgpd' },
-    { label: 'Logs do Sistema', icon: FileText, href: '/logs' },
-    { label: 'Ajuda', icon: FileText, href: '/ajuda' },
-    { label: 'Site', icon: Globe, href: '/site' },
-    { label: 'RH', icon: Users, href: '/rh' },
-    { label: 'Marketing', icon: TrendingUp, href: '/marketing' },
+    
+    {
+      label: 'Sistema',
+      icon: Building,
+      submenu: [
+        { label: 'Configurações', href: '/configuracoes' },
+        { label: 'LGPD/Compliance', href: '/lgpd' },
+        { label: 'Logs do Sistema', href: '/logs' },
+        { label: 'Ajuda', href: '/ajuda' },
+      ]
+    },
   ];
 
   const toggleMenu = (label: string) => {
