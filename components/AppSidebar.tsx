@@ -78,6 +78,8 @@ export default function AppSidebar() {
     { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
     { label: 'Chat', icon: Users, href: '/chat' },
     { label: 'Controle de Horas', icon: Clock, href: '/timesheet' },
+    { label: 'Relatórios', icon: FileText, href: '/relatorios' },
+    { label: 'Configurações', icon: Building, href: '/configuracoes' },
     { label: 'Site', icon: Globe, href: '/site' },
     { label: 'RH', icon: Users, href: '/rh' },
     { label: 'Marketing', icon: TrendingUp, href: '/marketing' },
