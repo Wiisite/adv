@@ -63,7 +63,15 @@ export default function AppSidebar() {
         { label: 'Assuntos', href: '/cadastros/assuntos' },
       ]
     },
-    { label: 'Financeiro', icon: DollarSign, href: '/financeiro' },
+    {
+      label: 'Financeiro',
+      icon: DollarSign,
+      submenu: [
+        { label: 'Visão Geral', href: '/financeiro' },
+        { label: 'Contas a Pagar', href: '/contas-pagar' },
+        { label: 'Contas a Receber', href: '/contas-receber' },
+      ]
+    },
     { label: 'Anotações', icon: FileText, href: '/anotacoes' },
     { label: 'Caixas', icon: Building, href: '/caixas' },
     { label: 'Calendário', icon: Calendar, href: '/calendario' },
