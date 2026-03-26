@@ -93,6 +93,7 @@ export default function AppSidebar() {
     { label: 'Perícias', icon: Award, href: '/pericias' },
     { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
     { label: 'Chat', icon: Users, href: '/chat' },
+    { label: 'Comunicação', icon: FileText, href: '/comunicacao' },
     { label: 'Controle de Horas', icon: Clock, href: '/timesheet' },
     { label: 'Relatórios', icon: FileText, href: '/relatorios' },
     { label: 'Configurações', icon: Building, href: '/configuracoes' },
