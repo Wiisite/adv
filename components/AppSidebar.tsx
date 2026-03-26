@@ -76,6 +76,7 @@ export default function AppSidebar() {
     { label: 'Perícias', icon: Award, href: '/pericias' },
     { label: 'Benefícios / OCB', icon: Award, href: '/beneficios' },
     { label: 'Chat', icon: Users, href: '/chat' },
+    { label: 'Controle de Horas', icon: Clock, href: '/timesheet' },
     { label: 'Site', icon: Globe, href: '/site' },
     { label: 'RH', icon: Users, href: '/rh' },
     { label: 'Marketing', icon: TrendingUp, href: '/marketing' },
